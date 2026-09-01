@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-h1">
+    <h1>Profile</h1>
+</div>
+<section class="profile-h profile-info-section">
+    <div class="profile-info">
+        <div class="profile-avatar">👤</div>
+        <div>
+            <h2>Patient Name</h2>
+            <p>Welcome to Mind Mosaic</p>
+        </div>
+    </div>
+    <div class="caregiver-info">
+        <span>Caregiver</span>
+        <strong>Caregiver Name</strong>
+    </div>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+    <div>
+        <h1>Family</h1>
+        <p>Your family</p>
+    </div>
+    <a href="{{ url_for('form') }}" class="manage-family-btn">Manage photos</a>
+    </div>
+</section>
+<section class="profile-family-grid">
+     <article class="profile-card family-card">
+        <div class="profile-card-icon">👨‍👩‍👧</div>
+        <div>
+            <h3>Family Members</h3>
+            <p>Add and manage photos of the people who are important to you.</p>
+            <span class="profile-card-info">Your saved family members will appear here.</span>
+        </div>
+    </article>
+</section>
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>Activity Overview</h1>
+            <p>Your recent cognitive activity</p>
+        </div>
+        <a href="{{ url_for('form') }}" class="manage-family-btn">View dashboard</a>
+    </div>
+</section>
+<section class="profile-family-grid">
+    <article class="profile-card">
+        <div class="profile-card-icon">📷</div>
+        <div class="activity-content">
+            <h3>Loved One Recognition</h3>
+            <div class="profile-score">
+                <strong>82%</strong>
+                <span>Accuracy</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 82%;"></div>
+            </div>
+        </div>
+    </article>
+
+    <article class="profile-card">
+        <div class="profile-card-icon">👨‍👩‍👧</div>
+        <div class="activity-content">
+            <h3>Family Quiz</h3>
+            <div class="profile-score">
+                <strong>74%</strong>
+                <span>Accuracy</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 74%;"></div>
+            </div>
+        </div>
+    </article>
+
+    <article class="profile-card">
+        <div class="profile-card-icon">🧠</div>
+        <div class="activity-content">
+            <h3>Pattern Activity</h3>
+            <div class="profile-score">
+                <strong>91%</strong>
+                <span>Accuracy</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 91%;"></div>
+            </div>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>Personalized Level</h1>
+            <p>Your activities adapt to your performance</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card personalized-card">
+        <div class="profile-card-icon">🎯</div>
+        <div>
+            <h3>Current Level</h3>
+            <div class="level-badge">Intermediate</div>
+            <p>Your activity difficulty is personalized based on your recent performance.</p>
+            <span class="ai-label">✨ Personalized based on your activity</span>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>Caregiver</h1>
+            <p>Your caregiver information</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card caregiver-card">
+        <div class="profile-card-icon">👤</div>
+        <div>
+            <h3>Caregiver Details</h3>
+            <div class="caregiver-details">
+                <p>
+                    <span>Name</span>
+                    <strong>Caregiver Name</strong>
+                </p>
+                <p>
+                    <span>Relationship</span>
+                    <strong>Daughter</strong>
+                </p>
+                <p>
+                    <span>Contact</span>
+                    <strong>+91 XXXXX XXXXX</strong>
+                </p>
+            </div>
+            <button type="button" class="edit-caregiver-btn">Edit details</button>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>Preferences</h1>
+            <p>Manage your app preferences</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card preferences-card">
+        <div class="preference-row">
+            <div>
+                <h3>🔊 Sound</h3>
+                <p>Activity sounds</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="preference-row">
+            <div>
+                <h3>🔔 Activity Reminders</h3>
+                <p>Receive reminders for activities</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="preference-row">
+            <div>
+                <h3>🌐 Language</h3>
+                <p>Your preferred language</p>
+            </div>
+            <select class="language-select">
+                <option>English</option>
+                <option>Hindi</option>
+            </select>
+        </div>
+    </article>
+</section>
+
+<div class="profile-account">
+    <a href="#" class="privacy-link">🔒 Privacy & Data</a>
+    <a href="#" class="logout-link">
+        🚪 Log Out
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}
+Login
+{% endblock %}
+{% block content %}
+
+<div class="family-setup-container">
+    <div class="family-setup-header">
+        <h1>Meet Your Family</h1>
+        <p>Add photos and names of people who are important to you.</p>
+    </div>
+    <form method="POST" class="auth-form" enctype="multipart/form-data" class="family-form">
+        <div id="family-members">
+        <fieldset class="family-member">
+            <legend>Family member 1</legend>
+            <label>Name</label>
+            <input type="text" name="member_name[]" required>
+            <label>Photo</label>
+            <input type="file" name="member_photo[]" accept=".jpg,.jpeg,.png,.webp" required>
+            <label>Relation</label>
+            <input type="file" name="member_relation[]" placeholder="e.g. Daughter, Son, Brother" required>
+        </fieldset>
+        </div>
+        <button type="button" id="add-member" class="add-member">+ Add another family member</button>
+        <button type="submit" class="save-family">Save photos</button>
+    </form>
+</div>
+
+<script>
+    const members = document.getElementById("family-members");
+    const addButton = document.getElementById("add-member");
+    addButton.addEventListener("click", () => {
+        const number = members.children.length + 1;
+        members.insertAdjacentHTML("beforeend", `
+            <fieldset class="family-member">
+                <legend>Family member ${number}</legend>
+                <label>Name</label>
+                <input type="text" name="member_name[]" required>
+                <label>Photo</label>
+                <input type="file" name="member_photo[]"
+                       accept=".jpg,.jpeg,.png,.webp" required>
+            </fieldset>
+        `);
+    });
+</script>
+{% endblock %}

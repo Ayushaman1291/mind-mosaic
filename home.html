@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Mind Mosaic</h1>
+    <p class="hero-sub">Mind Mosaic</p>
+</section>
+<section class="features">
+    <a href="{{url_for('puzzle')}}" class="feature-card">
+        <h2>Mind Games</h2>
+        <p></p>
+        <span class="card-btn"></span>
+    </a>
+    <a href="{{url_for('quiz')}}" class="feature-card">
+        <h2>Quizz</h2>
+        <p></p>
+        <span class="card-btn"></span>
+    </a>
+    <a href="{{url_for('photo')}}" class="feature-card">
+        <h2>Family Photos</h2>
+        <p></p>
+        <span class="card-btn"></span>
+    </a>
+    <a href="{{url_for('form')}}" class="feature-card">
+        <h2>Form</h2>
+        <p></p>
+        <span class="card-btn"></span>
+    </a>
+</section>
+{% endblock %}

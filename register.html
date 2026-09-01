@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+Create Account
+{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="page-header">
+        <h1>Create Account</h1>
+    </div>
+    <form method="POST" class="auth-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="number" name="phone" placeholder="Phone No" required>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="text" name="c-name" placeholder="Caregiver Name" required>
+        <input type="number" name="c-phone" placeholder="Caregiver Phone No" required>
+        <input type="password" name="password" placeholder="password" required>
+        <button type="submit">Create Account</button>
+    </form>
+    <p class="auth-switch">Already have an Account?<a href="{{url_for('login')}}">Login</a></p>
+    <p class="auth-switch">Fill form<a href="{{url_for('form')}}">Create One</a></p>
+</div>
+{% endblock %}
