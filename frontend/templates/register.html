@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+Create Account
+{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="page-header">
+        <h1>{{ t('register_title') }}</h1>
+    </div>
+    <form method="POST" class="auth-form">
+    <input type="text" name="name" placeholder="{{ t('register_name') }}" required>
+    <input type="email" name="email" placeholder="{{ t('register_email') }}" required>
+    <input type="number" name="phone" placeholder="{{ t('register_phone') }}" required>
+    <input type="text" name="address" placeholder="{{ t('register_address') }}" required>
+    <input type="date" name="birthday" placeholder="Birthday">
+
+    <select name="language">
+        {% for code, label in LANGUAGE_NAMES.items() %}
+            <option value="{{ code }}">{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="c-name" placeholder="{{ t('register_caregiver_name') }}" required>
+    <input type="number" name="c-phone" placeholder="{{ t('register_caregiver_phone') }}" required>
+    <input type="password" name="password" placeholder="{{ t('register_password') }}" required>
+
+    <div id="medicines" class="family-member">
+        <fieldset>
+            <legend>Medicine 1 (optional)</legend>
+            <label>Medicine name</label>
+            <input type="text" name="medicine_name[]">
+            <label>Time</label>
+            <input type="time" name="medicine_time[]">
+        </fieldset>
+    </div>
+    <button type="button" id="add-medicine" class="add-member">+ Add another medicine</button>
+
+    <button type="submit" class="save-family">{{ t('register_button') }}</button>
+</form>
+
+<script>
+    const medicines = document.getElementById("medicines");
+    const addMedicineButton = document.getElementById("add-medicine");
+    addMedicineButton.addEventListener("click", () => {
+        const number = medicines.children.length + 1;
+        medicines.insertAdjacentHTML("beforeend", `
+            <fieldset>
+                <legend>Medicine ${number} (optional)</legend>
+                <label>Medicine name</label>
+                <input type="text" name="medicine_name[]">
+                <label>Time</label>
+                <input type="time" name="medicine_time[]">
+            </fieldset>
+        `);
+    });
+</script>
+    <p class="auth-switch">{{ t('register_have_account') }}<a href="{{url_for('login')}}">{{ t('register_login') }}</a></p>
+    <p class="auth-switch">Fill form<a href="{{url_for('form')}}">Create One</a></p>
+</div>
+{% endblock %}

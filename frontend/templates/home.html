@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <h1>
+        {{ t('home_greeting', name=user.name or "there") }} 👋
+    </h1>
+
+    <p class="hero-sub">
+        {{ t('home_how_are_you') }}
+    </p>
+
+    <p
+        id="current-datetime"
+        style="color:#52734d; margin-top:10px;"
+    ></p>
+
+</section>
+
+
+<!-- ================= NEXT REMINDER ================= -->
+
+<section
+    class="photo-card"
+    style="
+        justify-content: flex-start;
+        align-items: stretch;
+        max-width:700px;
+    "
+>
+
+    <h3
+        style="
+            color:#0d5705;
+            width:100%;
+        "
+    >
+        {{ t('home_next_reminder') }}
+    </h3>
+
+
+    {% if upcoming %}
+
+        <p
+            style="
+                font-size:18px;
+                color:#244522;
+            "
+        >
+
+            <strong>
+                {{ upcoming.text }}
+            </strong>
+
+            at
+
+            <strong>
+                {{ upcoming.time }}
+            </strong>
+
+        </p>
+
+    {% else %}
+
+        <p class="photo-empty">
+            {{ t('home_no_reminder') }}
+        </p>
+
+    {% endif %}
+
+
+    <a
+        href="{{ url_for('reminders') }}"
+        class="manage-family-btn"
+    >
+        {{ t('home_see_more') }}
+    </a>
+
+</section>
+
+
+<!-- ================= HOME FEATURES ================= -->
+
+<section class="features">
+
+
+    <!-- GAMES -->
+
+    <a
+        href="{{ url_for('games') }}"
+        class="feature-card"
+    >
+
+        <h2>
+            Games
+        </h2>
+
+        <p>
+            Play interactive memory games
+        </p>
+
+    </a>
+
+
+    <!-- FAMILY PHOTOS -->
+
+    <a
+        href="{{ url_for('photo') }}"
+        class="feature-card"
+    >
+
+        <h2>
+            Family Photos
+        </h2>
+
+        <p>
+        </p>
+
+    </a>
+
+
+    <!-- FORM -->
+
+    <a
+        href="{{ url_for('form') }}"
+        class="feature-card"
+    >
+
+        <h2>
+            Form
+        </h2>
+
+        <p>
+        </p>
+
+    </a>
+
+
+</section>
+
+
+<!-- ================= CLOCK ================= -->
+
+<script>
+
+    function updateClock() {
+
+        const now = new Date();
+
+        const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        };
+
+        const dateStr =
+            now.toLocaleDateString(
+                undefined,
+                options
+            );
+
+        const timeStr =
+            now.toLocaleTimeString();
+
+        document
+            .getElementById("current-datetime")
+            .textContent =
+            dateStr + " — " + timeStr;
+    }
+
+
+    updateClock();
+
+    setInterval(
+        updateClock,
+        1000
+    );
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Games
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ================= GAMES HEADER ================= -->
+
+<section class="puzzle-h">
+
+    <div>
+
+        <h1>
+            Games
+        </h1>
+
+        <p>
+            Choose a game and start playing
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= GAME CARDS ================= -->
+
+<section class="games-grid">
+
+
+    <!-- ================= SHUFFLE GAME ================= -->
+
+    <a
+        href="{{ url_for('memoryshuffle') }}"
+        class="game-card"
+    >
+
+        <div>
+
+            <div class="game-icon">
+                🧠
+            </div>
+
+            <h2>
+                Shuffle Game
+            </h2>
+
+            <p>
+                Challenge your memory and concentration.
+            </p>
+
+        </div>
+
+
+        <span class="game-btn">
+            Play
+        </span>
+
+    </a>
+
+
+    <!-- ================= FAMILY MEMORY ================= -->
+
+    <a
+        href="{{ url_for('familymemory') }}"
+        class="game-card"
+    >
+
+        <div>
+
+            <div class="game-icon">
+                👨‍👩‍👧
+            </div>
+
+            <h2>
+                Family Memory
+            </h2>
+
+            <p>
+                Match familiar faces and memories.
+            </p>
+
+        </div>
+
+
+        <span class="game-btn">
+            Play
+        </span>
+
+    </a>
+
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Mind Mosaic
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            Mind Mosaic
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                {{ t('nav_home') }}
+            </a>
+
+            <a href="{{ url_for('photo') }}">
+                {{ t('nav_photos') }}
+            </a>
+
+            <a href="{{ url_for('reminders') }}">
+                {{ t('nav_reminders') }}
+            </a>
+
+            <a href="{{ url_for('history') }}">
+                {{ t('nav_history') }}
+            </a>
+
+            <a href="{{ url_for('games') }}">
+                {{ t('nav_games') }}
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                {{ t('nav_profile') }}
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        {% with messages = get_flashed_messages(
+            with_categories=true
+        ) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="flash-message {{ category }}"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p></p>
+
+        <p class="footer"></p>
+
+    </footer>
+
+</body>
+
+</html>

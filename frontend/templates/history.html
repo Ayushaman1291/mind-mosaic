@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+Activity History
+{% endblock %}
+
+{% block content %}
+
+<section class="photo-h">
+    <div>
+        <h1>Activity History</h1>
+        <p>Complete history of games and activities</p>
+    </div>
+</section>
+
+<section class="photo-card" style="justify-content: flex-start; align-items: stretch;">
+    {% if activities %}
+        <ul class="family-members-list" style="width:100%;">
+        {% for a in activities %}
+            <li style="margin-bottom:14px; list-style:none;">
+                <strong style="color:#0d5705;">{{ a.game.replace('_', ' ').title() }}</strong>
+                — Score: {{ a.score }}, Accuracy: {{ a.accuracy }}%, Time: {{ a.time_taken }}s
+                {% if a.level_reached %} , Level: {{ a.level_reached }}{% endif %}
+                {% if a.performance_label %} , Performance: {{ a.performance_label }}{% endif %}
+                <br>
+                <span style="color:#52734d; font-size:12px;">{{ a.created_at }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="photo-empty">No activity yet. Play a game to see your history here.</p>
+    {% endif %}
+</section>
+{% endblock %}

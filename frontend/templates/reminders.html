@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+Reminders
+{% endblock %}
+
+{% block content %}
+
+<section class="photo-h">
+    <div>
+        <h1>Daily Reminders</h1>
+        <p>Medicines, hydration, and important tasks</p>
+    </div>
+</section>
+
+<section class="photo-card" style="justify-content: flex-start; align-items: stretch;">
+
+    <h3 style="color:#0d5705; width:100%;">Medicines</h3>
+    {% if medicines %}
+        <ul class="family-members-list">
+        {% for m in medicines %}
+            <li>{{ m.name }} — {{ m.time }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="photo-empty">No medicines on file yet. Add them during registration or ask your caregiver.</p>
+    {% endif %}
+
+    <h3 style="color:#0d5705; width:100%; margin-top:20px;">Other Reminders</h3>
+    {% if reminders %}
+        <ul class="family-members-list">
+        {% for r in reminders %}
+            <li>
+                {{ r.text }} — {{ r.time }}
+                {% if r.done %}
+                    <strong style="color:#0d5705;">(Done)</strong>
+                {% else %}
+                    <a href="{{ url_for('complete_reminder', reminder_id=r.id) }}" class="manage-family-btn" style="margin-left:10px;">Mark done</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="photo-empty">No other reminders yet.</p>
+    {% endif %}
+
+    <form method="POST" class="photo-upload-form" style="margin-top:20px;">
+        <input type="text" name="text" placeholder="Reminder text (e.g. Drink water)" required>
+        <input type="time" name="time" required>
+        <button type="submit">Add reminder</button>
+    </form>
+
+</section>
+{% endblock %}

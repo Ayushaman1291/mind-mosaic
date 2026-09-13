@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-h1">
+    <h1>{{ t('profile_title') }}</h1>
+</div>
+<section class="profile-h profile-info-section">
+    <div class="profile-info">
+        <div class="profile-avatar">👤</div>
+        <div>
+            <h2>{{ user.name }}</h2>
+            <p>{{ t('profile_welcome') }}</p>
+        </div>
+    </div>
+    <div class="caregiver-info">
+        <span>{{ t('profile_caregiver_label') }}</span>
+<strong>{{ user.caregiver_name or "Not set" }}</strong>
+    </div>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+    <div>
+        <h1>{{ t('family_title') }}</h1>
+        <p>{{ t('family_subtitle') }}</p>
+    </div>
+    <a href="{{ url_for('form') }}" class="manage-family-btn">{{ t('manage_photos') }}</a>
+    </div>
+</section>
+<section class="profile-family-grid">
+<article class="profile-card family-card">
+    <div class="profile-card-icon">👨‍👩‍👧</div>
+    <div>
+        <h3>{{ t('family_members_title') }}</h3>
+        <p>{{ t('family_members_desc') }}</p>
+        {% if family_members %}
+            <ul class="family-members-list">
+            {% for member in family_members %}
+                <li>{{ member.name }} — {{ member.relation }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <span class="profile-card-info">{{ t('family_members_empty') }}</span>
+        {% endif %}
+    </div>
+</article>
+</section>
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>{{ t('activity_overview_title') }}</h1>
+            <p>{{ t('activity_overview_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+<section class="profile-family-grid">
+    <article class="profile-card">
+        <div class="profile-card-icon">📷</div>
+        <div class="activity-content">
+            <h3>{{ t('loved_one_recognition') }}</h3>
+            <div class="profile-score">
+                <strong>82%</strong>
+                <span>{{ t('accuracy_label') }}</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 82%;"></div>
+            </div>
+        </div>
+    </article>
+
+    <article class="profile-card">
+        <div class="profile-card-icon">👨‍👩‍👧</div>
+        <div class="activity-content">
+            <h3>{{ t('family_quiz_label') }}</h3>
+            <div class="profile-score">
+                <strong>74%</strong>
+                <span>{{ t('accuracy_label') }}</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 74%;"></div>
+            </div>
+        </div>
+    </article>
+
+    <article class="profile-card">
+        <div class="profile-card-icon">🧠</div>
+        <div class="activity-content">
+            <h3>{{ t('pattern_activity') }}</h3>
+            <div class="profile-score">
+                <strong>91%</strong>
+                <span>{{ t('accuracy_label') }}</span>
+            </div>
+            <div class="profile-progress">
+                <div style="width: 91%;"></div>
+            </div>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>{{ t('personalized_level_title') }}</h1>
+            <p>{{ t('personalized_level_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card personalized-card">
+        <div class="profile-card-icon">🎯</div>
+        <div>
+            <h3>{{ t('current_level') }}</h3>
+            <div class="level-badge">{{ t('level_intermediate') }}</div>
+            <p>{{ t('personalized_desc') }}</p>
+            <span class="ai-label">{{ t('personalized_label') }}</span>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>{{ t('caregiver_title') }}</h1>
+            <p>{{ t('caregiver_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card caregiver-card">
+        <div class="profile-card-icon">👤</div>
+        <div>
+            <h3>{{ t('caregiver_details_title') }}</h3>
+            <div class="caregiver-details">
+                <p>
+    <span>{{ t('caregiver_name_label') }}</span>
+    <strong>{{ user.caregiver_name or "Not set" }}</strong>
+</p>
+<p>
+    <span>{{ t('caregiver_contact_label') }}</span>
+    <strong>{{ user.caregiver_phone or "Not set" }}</strong>
+</p>
+            </div>
+            <button type="button" class="edit-caregiver-btn">{{ t('edit_details') }}</button>
+        </div>
+    </article>
+</section>
+
+<section class="profile-h">
+    <div class="profile-section-heading">
+        <div>
+            <h1>{{ t('preferences_title') }}</h1>
+            <p>{{ t('preferences_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="profile-family-grid">
+    <article class="profile-card preferences-card">
+        <div class="preference-row">
+            <div>
+                <h3>{{ t('sound_title') }}</h3>
+                <p>{{ t('sound_desc') }}</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="preference-row">
+            <div>
+                <h3>{{ t('reminders_pref_title') }}</h3>
+                <p>{{ t('reminders_pref_desc') }}</p>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="preference-row">
+            <div>
+                <h3>{{ t('language_title') }}</h3>
+                <p>{{ t('language_desc') }}</p>
+            </div>
+            <form method="POST" action="{{ url_for('set_language') }}">
+                <select name="language" class="language-select" onchange="this.form.submit()">
+                    {% for code, label in LANGUAGE_NAMES.items() %}
+                        <option value="{{ code }}" {% if user.language == code %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </article>
+</section>
+
+<div class="profile-account">
+    <a href="#" class="privacy-link">{{ t('privacy_link') }}</a>
+    <a href="{{ url_for('logout') }}" class="logout-link">
+    {{ t('logout_link') }}
+</a>
+</div>
+{% endblock %}
