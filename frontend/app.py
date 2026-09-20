@@ -783,6 +783,17 @@ def quiz():
 
 
 # =========================================================
+# CAREGIVER DASHBOARD
+# =========================================================
+
+@app.route("/caregiver")
+@login_required
+def caregiver_dashboard():
+    return render_template("caregiver_dashboard.html");
+
+
+
+# =========================================================
 # RUN APPLICATION
 # =========================================================
 
