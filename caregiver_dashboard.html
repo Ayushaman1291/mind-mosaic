@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}Caregiver Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="caregiver-dashboard">
+    <section class="caregiver-dashboard-header">
+
+        <div>
+            <p class="mm-eyebrow">CAREGIVER SPACE</p>
+
+            <h1>
+                Caregiver Dashboard
+            </h1>
+
+            <p>
+                A gentle overview of your loved one's
+                activities, routines and memories.
+            </p>
+        </div>
+
+        <div class="caregiver-welcome-card">
+            <span class="caregiver-welcome-icon">🌿</span>
+
+            <div>
+                <strong>Good morning</strong>
+                <span>You're helping make every day familiar.</span>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="caregiver-stats">
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">🧠</div>
+
+            <div>
+                <span>Activities</span>
+                <strong>12</strong>
+            </div>
+        </div>
+
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">🎯</div>
+
+            <div>
+                <span>Average Score</span>
+                <strong>82%</strong>
+            </div>
+        </div>
+
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">📷</div>
+
+            <div>
+                <span>Memories</span>
+                <strong>18</strong>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="caregiver-dashboard-grid">
+
+        <div class="caregiver-panel caregiver-activities">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">COGNITIVE ACTIVITIES</p>
+                    <h2>Recent activity</h2>
+                </div>
+
+                <a href="{{ url_for('history') }}">
+                    View history →
+                </a>
+            </div>
+
+
+            <div class="caregiver-activity-row">
+
+                <div class="caregiver-activity-icon">
+                    🧩
+                </div>
+
+                <div class="caregiver-activity-info">
+                    <strong>Memory Shuffle</strong>
+                    <span>Completed today</span>
+                </div>
+
+                <div class="caregiver-score">
+                    82%
+                </div>
+
+            </div>
+
+
+            <div class="caregiver-activity-row">
+
+                <div class="caregiver-activity-icon">
+                    👨‍👩‍👧
+                </div>
+
+                <div class="caregiver-activity-info">
+                    <strong>Family Memory</strong>
+                    <span>Completed yesterday</span>
+                </div>
+
+                <div class="caregiver-score">
+                    75%
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="caregiver-panel">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">TODAY</p>
+                    <h2>Reminders</h2>
+                </div>
+
+                <a href="{{ url_for('reminders') }}">
+                    View all →
+                </a>
+            </div>
+
+
+            <div class="caregiver-reminder">
+
+                <span>💊</span>
+
+                <div>
+                    <strong>Medicine</strong>
+                    <small>10:00 AM</small>
+                </div>
+
+            </div>
+
+
+            <div class="caregiver-reminder">
+
+                <span>💊</span>
+
+                <div>
+                    <strong>Medicine</strong>
+                    <small>6:00 PM</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="caregiver-panel">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">MEMORIES</p>
+                    <h2>Important people</h2>
+                </div>
+
+                <a href="{{ url_for('photo') }}">
+                    Manage →
+                </a>
+            </div>
+
+
+            <div class="caregiver-family-preview">
+
+                <div class="caregiver-family-avatar">
+                    👩
+                </div>
+
+                <div>
+                    <strong>Family members</strong>
+                    <span>Manage familiar people and memories</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="caregiver-dashboard-note">
+
+        <span>🌱</span>
+
+        <div>
+            <strong>Gentle support matters</strong>
+
+            <p>
+                Mind Mosaic is designed to support familiarity,
+                connection and engagement at a comfortable pace.
+            </p>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

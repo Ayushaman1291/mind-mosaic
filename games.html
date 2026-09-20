@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="mm-games-page">
+
+    <div class="mm-games-header">
+        <p class="mm-eyebrow">COGNITIVE ACTIVITIES</p>
+
+        <h1>Choose an activity</h1>
+
+        <p>
+            Take a moment to explore, remember and connect with familiar things.
+        </p>
+    </div>
+
+
+    <div class="mm-games-grid">
+
+        <article class="mm-game-card mm-game-green">
+
+            <div class="mm-game-visual">
+                <div class="mm-game-icon">
+                    🧩
+                </div>
+
+                <span class="mm-game-tag">
+                    VISUAL MEMORY
+                </span>
+            </div>
+
+            <div class="mm-game-body">
+
+                <h2>Memory Shuffle</h2>
+
+                <p>
+                    Look carefully, remember what you see,
+                    and test how well you can recall the details.
+                </p>
+
+                <div class="mm-game-info">
+                    <span>🧠 Memory</span>
+                    <span>👁 Recall</span>
+                </div>
+
+                <a href="{{ url_for('quiz') }}" class="mm-game-button">
+                    Start activity
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </article>
+
+        <article class="mm-game-card mm-game-gold">
+
+            <div class="mm-game-visual">
+                <div class="mm-game-icon">
+                    👨‍👩‍👧
+                </div>
+
+                <span class="mm-game-tag">
+                    PERSONAL MEMORY
+                </span>
+            </div>
+
+            <div class="mm-game-body">
+
+                <h2>Family Memory</h2>
+
+                <p>
+                    Recall familiar people, relationships and
+                    meaningful information from your family.
+                </p>
+
+                <div class="mm-game-info">
+                    <span>❤️ Familiarity</span>
+                    <span>👥 People</span>
+                </div>
+
+                <a href="{{ url_for('quiz') }}" class="mm-game-button">
+                    Start activity
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+    <div class="mm-games-note">
+
+        <div class="mm-note-icon">
+            🌿
+        </div>
+
+        <div>
+            <strong>Take your time</strong>
+
+            <p>
+                These activities are designed to be gentle and engaging.
+                There is no need to rush.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

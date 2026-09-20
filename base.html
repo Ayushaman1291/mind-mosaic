@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Mind Mosaic
+        {% endblock %}
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style1.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+    <div class="background-decoration background-decoration-left"></div>
+    <div class="background-decoration background-decoration-right"></div>
+
+    <nav class="navbar">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="logo"
+        >
+            <span class="logo-mark">M</span>
+            <span>Mind Mosaic</span>
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                <span class="nav-icon">⌂</span>
+                {{ t('nav_home') }}
+            </a>
+
+            <a href="{{ url_for('photo') }}">
+                <span class="nav-icon">♡</span>
+                {{ t('nav_photos') }}
+            </a>
+
+            <a href="{{ url_for('reminders') }}">
+                <span class="nav-icon">◷</span>
+                {{ t('nav_reminders') }}
+            </a>
+
+            <a href="{{ url_for('history') }}">
+                <span class="nav-icon">◒</span>
+                {{ t('nav_history') }}
+            </a>
+
+            <a href="{{ url_for('games') }}">
+                <span class="nav-icon">✦</span>
+                {{ t('nav_games') }}
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                <span class="nav-icon">○</span>
+                {{ t('nav_profile') }}
+            </a>
+
+        </div>
+
+        <!-- <button
+            class="mobile-menu-btn"
+            type="button"
+            onclick="toggleMobileMenu()"
+            aria-label="Open menu"
+        >
+            ☰
+        </button> -->
+
+    </nav>
+
+    <main>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div>
+                <strong>Mind Mosaic</strong>
+                <span>Memories. Connections. Moments.</span>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        function toggleMobileMenu() {
+
+            const nav = document.querySelector(".nav-links");
+
+            nav.classList.toggle("mobile-open");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

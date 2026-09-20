@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="mm-home">
+
+    <div class="mm-welcome">
+        <div>
+            <p class="mm-eyebrow">WELCOME BACK</p>
+
+            <h1>
+                Hello, {{ caregiver_name or "there" }} 👋
+            </h1>
+
+            <p class="mm-welcome-text">
+                A calm space for memories, familiar faces, routines and meaningful moments.
+            </p>
+        </div>
+
+        <div class="mm-date-card">
+            <span>Today</span>
+            <strong id="live-date"></strong>
+            <small id="live-time"></small>
+        </div>
+    </div>
+
+
+    <div class="mm-reminder-banner">
+
+        <div class="mm-reminder-icon">
+            ⏰
+        </div>
+
+        <div class="mm-reminder-content">
+            <span class="mm-small-label">UPCOMING REMINDER</span>
+
+            {% if next_reminder %}
+                <h3>{{ next_reminder.medicine_name }}</h3>
+                <p>{{ next_reminder.time }}</p>
+            {% else %}
+                <h3>No upcoming reminders</h3>
+                <p>Your schedule is clear for now.</p>
+            {% endif %}
+        </div>
+
+        <a href="{{ url_for('reminders') }}" class="mm-text-button">
+            View reminders →
+        </a>
+
+    </div>
+
+    <div class="mm-section-heading">
+        <div>
+            <p class="mm-eyebrow">YOUR SPACE</p>
+            <h2>Explore Mind Mosaic</h2>
+        </div>
+
+        <p>
+            Choose something familiar, meaningful or engaging.
+        </p>
+        <a href="{{ url_for('caregiver_dashboard') }}" class="caregiver-dashboard-btn">
+            <span>♡</span>
+            Caregiver Dashboard
+            <span class="arrow">→</span>
+        </a>
+    </div>
+
+
+    <div class="mm-feature-grid">
+
+        <a href="{{ url_for('games') }}" class="mm-feature mm-feature-large">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-green">
+                    🧩
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">COGNITIVE ACTIVITIES</span>
+
+                <h3>Mind Games</h3>
+
+                <p>
+                    Gentle activities designed around memory, recall and familiar information.
+                </p>
+
+                <span class="mm-feature-link">
+                    Explore activities
+                </span>
+            </div>
+
+        </a>
+
+
+        <a href="{{ url_for('photo') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-gold">
+                    📷
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">MEMORIES</span>
+
+                <h3>Photos &amp; People</h3>
+
+                <p>
+                    Keep important people and familiar moments close.
+                </p>
+
+                <span class="mm-feature-link">
+                    View memories
+                </span>
+            </div>
+
+        </a>
+
+        <a href="{{ url_for('reminders') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-soft">
+                    💊
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">DAILY ROUTINE</span>
+
+                <h3>Reminders</h3>
+
+                <p>
+                    Keep medicines and important daily routines organized.
+                </p>
+
+                <span class="mm-feature-link">
+                    Manage reminders
+                </span>
+            </div>
+
+        </a>
+
+        <a href="{{ url_for('profile') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-rose">
+                    👤
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">PERSONAL SPACE</span>
+
+                <h3>My Profile</h3>
+
+                <p>
+                    Manage your profile, family connections and preferences.
+                </p>
+
+                <span class="mm-feature-link">
+                    Open profile
+                </span>
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<script>
+function updateDateTime() {
+    const now = new Date();
+
+    const dateElement = document.getElementById("live-date");
+    const timeElement = document.getElementById("live-time");
+
+    if (dateElement) {
+        dateElement.textContent = now.toLocaleDateString("en-IN", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
+    }
+
+    if (timeElement) {
+        timeElement.textContent = now.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+</script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-intro">
+
+        <p class="mm-eyebrow">WELCOME BACK</p>
+
+        <h1>
+            A familiar space<br>
+            to <span>remember.</span>
+        </h1>
+
+        <p>
+            Welcome back to Mind Mosaic — a gentle space designed
+            around familiar people, memories, routines and moments
+            that matter.
+        </p>
+
+        <div class="auth-visual">
+
+            <div class="auth-orb one"></div>
+            <div class="auth-orb two"></div>
+            <div class="auth-orb three"></div>
+
+            <div class="auth-memory-card">
+
+                <div class="memory-icon">🌿</div>
+
+                <strong>
+                    Welcome back
+                </strong>
+
+                <small>
+                    Your familiar memories are waiting.
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="auth-card">
+
+        <p class="mm-eyebrow">MIND MOSAIC</p>
+
+        <h2>Sign in</h2>
+
+        <p>
+            Continue your journey from where you left off.
+        </p>
+
+
+        <form method="POST" class="auth-form">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <button type="submit" class="auth-submit">
+                Sign in
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+            Don't have an account?
+            <a href="{{ url_for('register') }}">
+                Create one
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

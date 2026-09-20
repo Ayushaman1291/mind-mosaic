@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="mm-photos-page">
+    <div class="mm-photos-header">
+
+        <div>
+            <p class="mm-eyebrow">MEMORIES &amp; PEOPLE</p>
+
+            <h1>Familiar faces,<br>meaningful moments.</h1>
+
+            <p>
+                Keep the people and memories that matter close.
+            </p>
+        </div>
+
+        <div class="mm-memory-mark">
+            <span>♡</span>
+        </div>
+
+    </div>
+
+    <section class="mm-upload-card">
+
+        <div class="mm-upload-heading">
+
+            <div class="mm-upload-icon">
+                📷
+            </div>
+
+            <div>
+                <span class="mm-card-label">ADD A MEMORY</span>
+                <h2>Save a familiar moment</h2>
+                <p>
+                    Add a photo and a name so important people
+                    are easier to remember.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="mm-photo-form"
+        >
+
+            <div class="mm-input-group">
+
+                <label for="person_name">
+                    Person's name
+                </label>
+
+                <input
+                    type="text"
+                    id="person_name"
+                    name="person_name"
+                    placeholder="e.g. Grandma, Rahul, Mom"
+                    required
+                >
+
+            </div>
+
+
+            <div class="mm-input-group">
+
+                <label for="photo">
+                    Choose photo
+                </label>
+
+                <input
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept="image/png,image/jpeg,image/jpg"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="mm-upload-button">
+                Add memory
+                <span>+</span>
+            </button>
+
+        </form>
+
+    </section>
+
+    <div class="mm-memory-heading">
+
+        <div>
+            <p class="mm-eyebrow">YOUR COLLECTION</p>
+            <h2>People &amp; memories</h2>
+        </div>
+
+        {% if photos %}
+            <span class="mm-memory-count">
+                {{ photos|length }} memories
+            </span>
+        {% endif %}
+
+    </div>
+
+
+    {% if photos %}
+
+        <div class="mm-memory-grid">
+
+            {% for photo in photos %}
+
+                <article class="mm-memory-card">
+
+                    <div class="mm-memory-image">
+
+                        <img
+                            src="{{ url_for('static', filename='uploads/' + photo.filename) }}"
+                            alt="{{ photo.person_name }}"
+                        >
+
+                    </div>
+
+                    <div class="mm-memory-info">
+
+                        <div>
+                            <span class="mm-memory-label">
+                                FAMILIAR PERSON
+                            </span>
+
+                            <h3>
+                                {{ photo.person_name }}
+                            </h3>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="mm-empty-memory">
+
+            <div class="mm-empty-icon">
+                🌱
+            </div>
+
+            <h3>Your memory collection is empty</h3>
+
+            <p>
+                Add a photo above to begin creating a familiar
+                and meaningful space.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

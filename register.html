@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <!-- LEFT SIDE -->
+    <div class="auth-intro">
+
+        <p class="mm-eyebrow">START YOUR JOURNEY</p>
+
+        <h1>
+            Create a space<br>
+            filled with <span>familiarity.</span>
+        </h1>
+
+        <p>
+            Set up Mind Mosaic with the people, routines and
+            information that make everyday life feel more familiar
+            and connected.
+        </p>
+
+        <div class="auth-visual">
+
+            <div class="auth-orb one"></div>
+            <div class="auth-orb two"></div>
+            <div class="auth-orb three"></div>
+
+            <div class="auth-memory-card">
+
+                <div class="memory-icon">🫶</div>
+
+                <strong>
+                    Make it personal
+                </strong>
+
+                <small>
+                    Add the people and routines that matter.
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="auth-card">
+
+        <p class="mm-eyebrow">MIND MOSAIC</p>
+
+        <h2>Create your account</h2>
+
+        <p>
+            Let's set up your personal memory space.
+        </p>
+
+
+        <form
+            method="POST"
+            class="auth-form"
+        >
+
+            <!-- USERNAME -->
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Choose a username"
+                autocomplete="username"
+                required
+            >
+
+
+            <!-- EMAIL -->
+            <label for="email">
+                Email address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter email address"
+                autocomplete="email"
+                required
+            >
+
+
+            <!-- PHONE -->
+            <label for="phone">
+                Phone number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter phone number"
+                autocomplete="tel"
+                inputmode="tel"
+            >
+
+
+            <!-- BIRTHDAY -->
+            <label for="birthday">
+                Birthday
+            </label>
+
+            <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                autocomplete="bday"
+            >
+
+
+            <!-- PASSWORD -->
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <!-- CAREGIVER -->
+            <label for="caregiver_name">
+                Caregiver name
+            </label>
+
+            <input
+                type="text"
+                id="caregiver_name"
+                name="caregiver_name"
+                placeholder="Enter caregiver name"
+            >
+
+
+            <!-- MEDICINES -->
+            <div class="medicine-fields">
+
+                <h3>
+                    💊 Medicines
+                </h3>
+
+                <p class="medicine-description">
+                    Add regular medicines if you want them
+                    available for reminders later.
+                </p>
+
+
+                <div id="medicine-container">
+
+                    <div class="medicine-item">
+
+                        <label for="medicine_name_1">
+                            Medicine name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="medicine_name_1"
+                            name="medicine_name[]"
+                            placeholder="e.g. Vitamin D"
+                        >
+
+
+                        <label for="medicine_dosage_1">
+                            Dosage
+                        </label>
+
+                        <input
+                            type="text"
+                            id="medicine_dosage_1"
+                            name="medicine_dosage[]"
+                            placeholder="e.g. 1 tablet"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="add-medicine-btn"
+                    onclick="addMedicine()"
+                >
+                    + Add another medicine
+                </button>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+            <button
+                type="submit"
+                class="auth-submit"
+            >
+                Create account
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+
+            Already have an account?
+
+            <a href="{{ url_for('login') }}">
+                Sign in
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+let medicineCount = 1;
+
+function addMedicine() {
+
+    medicineCount++;
+
+    const container =
+        document.getElementById("medicine-container");
+
+    const medicine =
+        document.createElement("div");
+
+    medicine.className = "medicine-item";
+
+    medicine.innerHTML = `
+
+        <label for="medicine_name_${medicineCount}">
+            Medicine name
+        </label>
+
+        <input
+            type="text"
+            id="medicine_name_${medicineCount}"
+            name="medicine_name[]"
+            placeholder="e.g. Vitamin D"
+        >
+
+        <label for="medicine_dosage_${medicineCount}">
+            Dosage
+        </label>
+
+        <input
+            type="text"
+            id="medicine_dosage_${medicineCount}"
+            name="medicine_dosage[]"
+            placeholder="e.g. 1 tablet"
+        >
+
+        <button
+            type="button"
+            class="remove-medicine-btn"
+            onclick="this.parentElement.remove()"
+        >
+            Remove
+        </button>
+
+    `;
+
+    container.appendChild(medicine);
+}
+
+</script>
+
+{% endblock %}

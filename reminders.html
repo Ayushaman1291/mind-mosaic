@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="mm-reminders-page">
+    <div class="mm-reminders-header">
+
+        <div>
+            <p class="mm-eyebrow">DAILY ROUTINE</p>
+
+            <h1>Reminders</h1>
+
+            <p>
+                A little structure for the things that matter every day.
+            </p>
+        </div>
+
+        <div class="mm-routine-icon">
+            ⏰
+        </div>
+
+    </div>
+
+    <section class="mm-reminder-section">
+
+        <div class="mm-reminder-section-heading">
+
+            <div>
+                <p class="mm-card-label">MEDICINES</p>
+                <h2>Medicine routine</h2>
+            </div>
+
+            <span class="mm-section-count">
+                {{ medicines|length if medicines else 0 }}
+                {% if medicines and medicines|length == 1 %}
+                    medicine
+                {% else %}
+                    medicines
+                {% endif %}
+            </span>
+
+        </div>
+
+
+        {% if medicines %}
+
+        <div class="mm-medicine-grid">
+
+            {% for medicine in medicines %}
+
+            <div class="mm-medicine-card">
+
+                <div class="mm-medicine-icon">
+                    💊
+                </div>
+
+                <div class="mm-medicine-details">
+
+                    <span>MEDICINE</span>
+
+                    <h3>
+                        {{ medicine.name }}
+                    </h3>
+
+                    {% if medicine.dosage %}
+                        <p>{{ medicine.dosage }}</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="mm-empty-routine">
+            <span>🌿</span>
+            <div>
+                <strong>No medicines added yet</strong>
+                <p>Your medicine routine will appear here.</p>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </section>
+    <section class="mm-reminder-section">
+
+        <div class="mm-reminder-section-heading">
+
+            <div>
+                <p class="mm-card-label">YOUR SCHEDULE</p>
+                <h2>Upcoming reminders</h2>
+            </div>
+
+        </div>
+
+
+        {% if reminders %}
+
+        <div class="mm-reminder-list">
+
+            {% for reminder in reminders %}
+
+            <div class="mm-schedule-card">
+
+                <div class="mm-time-block">
+                    <strong>{{ reminder.time }}</strong>
+                </div>
+
+                <div class="mm-schedule-line"></div>
+
+                <div class="mm-schedule-content">
+
+                    <div class="mm-schedule-icon">
+                        💊
+                    </div>
+
+                    <div>
+                        <h3>
+                            {{ reminder.medicine_name }}
+                        </h3>
+
+                        {% if reminder.note %}
+                            <p>{{ reminder.note }}</p>
+                        {% else %}
+                            <p>Medicine reminder</p>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="mm-empty-routine">
+            <span>☀️</span>
+            <div>
+                <strong>No reminders scheduled</strong>
+                <p>Add a reminder below to organize the day.</p>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+    <section class="mm-add-reminder">
+
+        <div class="mm-add-reminder-header">
+
+            <div class="mm-add-icon">
+                +
+            </div>
+
+            <div>
+                <p class="mm-card-label">PLAN AHEAD</p>
+
+                <h2>Add a reminder</h2>
+
+                <p>
+                    Create a simple reminder for a medicine or daily routine.
+                </p>
+            </div>
+
+        </div>
+
+
+        <form method="POST" class="mm-reminder-form">
+
+            <div class="mm-reminder-field">
+
+                <label for="medicine">
+                    Medicine
+                </label>
+
+                <select id="medicine" name="medicine" required>
+
+                    <option value="" disabled selected>
+                        Select medicine
+                    </option>
+
+                    {% for medicine in medicines %}
+                        <option value="{{ medicine.name }}">
+                            {{ medicine.name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="time">
+                    Time
+                </label>
+
+                <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    required
+                >
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="note">
+                    Note <span>(optional)</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="note"
+                    name="note"
+                    placeholder="e.g. After breakfast"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="mm-reminder-submit"
+            >
+                Add reminder
+                <span>+</span>
+            </button>
+
+        </form>
+
+    </section>
+
+</section>
+
+{% endblock %}
