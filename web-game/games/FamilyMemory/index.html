@@ -6,6 +6,13 @@
     <title>Unity Web Player | Faimly_Memory</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+  <style id="mind-mosaic-fullscreen">
+/* Mind Mosaic fullscreen override */
+html, body { width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: #F2F0E6 !important; }
+#unity-container, #unity-container.unity-desktop, #unity-container.unity-mobile { position: fixed !important; left: 0 !important; top: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; transform: none !important; }
+#unity-canvas { width: 100% !important; height: 100% !important; display: block !important; background: #F2F0E6 !important; }
+#unity-footer, #unity-logo-title-footer, #unity-fullscreen-button, #unity-build-title { display: none !important; }
+</style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -107,6 +114,15 @@
         canvas.style.width = "960px";
         canvas.style.height = "600px";
       }
+
+      // Double-click anywhere toggles true browser fullscreen mode
+      document.addEventListener('dblclick', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen();
+        }
+      });
 
       document.querySelector("#unity-loading-bar").style.display = "block";
 
