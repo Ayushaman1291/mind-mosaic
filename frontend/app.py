@@ -38,10 +38,10 @@ def login_required(f):
 
 load_dotenv()
 
-BACKEND_URL = "http://127.0.0.1:5000/api"
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://127.0.0.1:5000/api")
 
 app = Flask(__name__)
-app.secret_key = "dev-secret-change-later"
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-later")
 MEMORYSHUFFLE_DIR = os.path.join(
     app.root_path,
     "..",
@@ -871,8 +871,4 @@ def caregiver_dashboard():
 # =========================================================
 
 if __name__ == "__main__":
-
-    app.run(
-        debug=True,
-        port=5001
-    )
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5001)), debug=True)
