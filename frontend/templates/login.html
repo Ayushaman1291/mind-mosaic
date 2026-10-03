@@ -1,18 +1,103 @@
 {% extends "base.html" %}
-{% block title %}
-Login
-{% endblock %}
+
 {% block content %}
-<div class="auth-container">
-<div class="page-header">
-    <h1>{{ t('login_title') }}</h1>
-    <p>{{ t('login_subtitle') }}</p>
-</div>
-<form method="POST" class="auth-form">
-    <input type="email" name="email" placeholder="{{ t('login_email') }}" required>
-    <input type="password" name="password" placeholder="{{ t('login_password') }}" required>
-    <button type="submit">{{ t('login_button') }}</button>
-</form>
-<p class="auth-switch">{{ t('login_no_account') }}<a href="{{url_for('register')}}">{{ t('login_create_one') }}</a></p>
-</div>
+
+<section class="auth-page">
+
+    <div class="auth-intro">
+
+        <p class="mm-eyebrow">{{ t('login_eyebrow') }}</p>
+
+        <h1>
+            {{ t('login_hero_line1') }}<br>
+            <span>{{ t('login_hero_highlight') }}</span>
+        </h1>
+
+        <p>
+            {{ t('login_hero_desc') }}
+        </p>
+
+        <div class="auth-visual">
+
+            <div class="auth-orb one"></div>
+            <div class="auth-orb two"></div>
+            <div class="auth-orb three"></div>
+
+            <div class="auth-memory-card">
+
+                <div class="memory-icon">🌿</div>
+
+                <strong>
+                    {{ t('login_card_title') }}
+                </strong>
+
+                <small>
+                    {{ t('login_card_desc') }}
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="auth-card">
+
+        <p class="mm-eyebrow">{{ t('app_eyebrow') }}</p>
+
+        <h2>{{ t('login_heading') }}</h2>
+
+        <p>
+            {{ t('login_tagline') }}
+        </p>
+
+
+        <form method="POST" class="auth-form">
+
+            <label for="username">
+                {{ t('field_username') }}
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="{{ t('field_username_ph') }}"
+                autocomplete="username"
+                required
+            >
+
+
+            <label for="password">
+                {{ t('field_password') }}
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="{{ t('field_password_ph') }}"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <button type="submit" class="auth-submit">
+                {{ t('btn_sign_in') }}
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+            {{ t('login_no_account') }}
+            <a href="{{ url_for('register') }}">
+                {{ t('login_create_one') }}
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
 {% endblock %}

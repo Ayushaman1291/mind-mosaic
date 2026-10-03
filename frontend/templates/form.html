@@ -6,41 +6,48 @@ Login
 
 <div class="family-setup-container">
     <div class="family-setup-header">
-        <h1>Meet Your Family</h1>
-        <p>Add photos and names of people who are important to you.</p>
+        <h1>{{ t('family_setup_title') }}</h1>
+        <p>{{ t('family_setup_desc') }}</p>
     </div>
-    <form method="POST" class="auth-form" enctype="multipart/form-data" class="family-form">
+    <form method="POST" class="auth-form family-form" enctype="multipart/form-data" >
         <div id="family-members">
         <fieldset class="family-member">
-            <legend>Family member 1</legend>
-            <label>Name</label>
+            <legend>{{ t('family_member_legend') }} 1</legend>
+            <label>{{ t('field_name') }}</label>
             <input type="text" name="member_name[]" required>
-            <label>Photo</label>
+            <label>{{ t('field_photo') }}</label>
             <input type="file" name="member_photo[]" accept=".jpg,.jpeg,.png,.webp" required>
-            <label>Relation</label>
-            <input type="text" name="member_relation[]" placeholder="e.g. Daughter, Son, Brother" required>
+            <label>{{ t('field_relation') }}</label>
+            <input type="text" name="member_relation[]" placeholder="{{ t('field_relation_ph') }}" required>
         </fieldset>
         </div>
-        <button type="button" id="add-member" class="add-member">+ Add another family member</button>
-        <button type="submit" class="save-family">Save photos</button>
+        <button type="button" id="add-member" class="add-member">{{ t('btn_add_member') }}</button>
+        <button type="submit" class="save-family">{{ t('btn_save_photos') }}</button>
     </form>
 </div>
 
 <script>
     const members = document.getElementById("family-members");
     const addButton = document.getElementById("add-member");
+
+    const memberLegend = {{ t('family_member_legend') | tojson }};
+    const nameLabel = {{ t('field_name') | tojson }};
+    const photoLabel = {{ t('field_photo') | tojson }};
+    const relationLabel = {{ t('field_relation') | tojson }};
+    const relationPh = {{ t('field_relation_ph') | tojson }};
+
     addButton.addEventListener("click", () => {
         const number = members.children.length + 1;
         members.insertAdjacentHTML("beforeend", `
             <fieldset class="family-member">
-                <legend>Family member ${number}</legend>
-                <label>Name</label>
+                <legend>${memberLegend} ${number}</legend>
+                <label>${nameLabel}</label>
                 <input type="text" name="member_name[]" required>
-                <label>Photo</label>
+                <label>${photoLabel}</label>
                 <input type="file" name="member_photo[]"
                        accept=".jpg,.jpeg,.png,.webp" required>
-                <label>Relation</label>
-                <input type="text" name="member_relation[]" placeholder="e.g. Daughter, Son, Brother" required>
+                <label>${relationLabel}</label>
+                <input type="text" name="member_relation[]" placeholder="${relationPh}" required>
             </fieldset>
         `);
     });

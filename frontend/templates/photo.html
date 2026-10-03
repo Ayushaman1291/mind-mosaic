@@ -1,37 +1,165 @@
 {% extends "base.html" %}
-{% block title %}
-Home
-{% endblock %}
 
 {% block content %}
 
-<section class="photo-h">
-    <div>
-        <h1>Pictures of the ones you love</h1>
-        <p>Let's Rewind memories</p>
-    </div>
-</section>
+<section class="mm-photos-page">
+    <div class="mm-photos-header">
 
-<section class="photo-card" style="justify-content: flex-start; align-items: stretch;">
-    <form method="POST" enctype="multipart/form-data" class="photo-upload-form">
-        <input type="file" name="photo" accept=".jpg,.jpeg,.png,.webp" required>
-        <input type="text" name="caption" placeholder="Add a caption (optional)">
-        <button type="submit">Upload photo</button>
-    </form>
+        <div>
+            <p class="mm-eyebrow">{{ t('photo_eyebrow') }}</p>
+
+            <h1>{{ t('photo_hero_line1') }}<br>{{ t('photo_hero_line2') }}</h1>
+
+            <p>
+                {{ t('photo_hero_desc') }}
+            </p>
+        </div>
+
+        <div class="mm-memory-mark">
+            <span>♡</span>
+        </div>
+
+    </div>
+
+    <section class="mm-upload-card">
+
+        <div class="mm-upload-heading">
+
+            <div class="mm-upload-icon">
+                📷
+            </div>
+
+            <div>
+                <span class="mm-card-label">{{ t('photo_add_label') }}</span>
+                <h2>{{ t('photo_add_title') }}</h2>
+                <p>
+                    {{ t('photo_add_desc') }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="mm-photo-form"
+        >
+
+            <div class="mm-input-group">
+
+                <label for="person_name">
+                    {{ t('field_person_name') }}
+                </label>
+
+                <input
+                    type="text"
+                    id="person_name"
+                    name="person_name"
+                    placeholder="{{ t('field_person_name_ph') }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="mm-input-group">
+
+                <label for="photo">
+                    {{ t('field_choose_photo') }}
+                </label>
+
+                <input
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept="image/png,image/jpeg,image/jpg"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="mm-upload-button">
+                {{ t('btn_add_memory') }}
+                <span>+</span>
+            </button>
+
+        </form>
+
+    </section>
+
+    <div class="mm-memory-heading">
+
+        <div>
+            <p class="mm-eyebrow">{{ t('photo_collection_eyebrow') }}</p>
+            <h2>{{ t('photo_collection_title') }}</h2>
+        </div>
+
+        {% if photos %}
+            <span class="mm-memory-count">
+                {{ photos|length }} {{ t('photo_memories_count') }}
+            </span>
+        {% endif %}
+
+    </div>
+
 
     {% if photos %}
-        <div class="photo-gallery">
-        {% for p in photos %}
-            <figure class="photo-item">
-                <img src="{{ p.photo_url }}" alt="{{ p.caption or 'Family photo' }}">
-                {% if p.caption %}
-                <figcaption>{{ p.caption }}</figcaption>
-                {% endif %}
-            </figure>
-        {% endfor %}
+
+        <div class="mm-memory-grid">
+
+            {% for photo in photos %}
+
+                <article class="mm-memory-card">
+
+                    <div class="mm-memory-image">
+
+                        <img
+                            src="{{ photo.photo_url }}"
+                            alt="{{ photo.caption }}"
+                        >
+
+                    </div>
+
+                    <div class="mm-memory-info">
+
+                        <div>
+                            <span class="mm-memory-label">
+                                {{ t('photo_person_label') }}
+                            </span>
+
+                            <h3>
+                                {{ photo.caption }}
+                            </h3>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
         </div>
+
     {% else %}
-        <p class="photo-empty">No photos yet. Upload your first memory above.</p>
+
+        <div class="mm-empty-memory">
+
+            <div class="mm-empty-icon">
+                🌱
+            </div>
+
+            <h3>{{ t('photo_empty_title') }}</h3>
+
+            <p>
+                {{ t('photo_empty_desc') }}
+            </p>
+
+        </div>
+
     {% endif %}
+
 </section>
+
 {% endblock %}

@@ -1,53 +1,352 @@
 {% extends "base.html" %}
-{% block title %}
-Reminders
-{% endblock %}
 
 {% block content %}
 
-<section class="photo-h">
-    <div>
-        <h1>Daily Reminders</h1>
-        <p>Medicines, hydration, and important tasks</p>
+<section class="mm-reminders-page">
+    <div class="mm-reminders-header">
+
+        <div>
+            <p class="mm-eyebrow">{{ t('reminders_eyebrow') }}</p>
+
+            <h1>{{ t('reminders_title') }}</h1>
+
+            <p>
+                {{ t('reminders_desc') }}
+            </p>
+        </div>
+
+        <div class="mm-routine-icon">
+            ⏰
+        </div>
+
     </div>
-</section>
 
-<section class="photo-card" style="justify-content: flex-start; align-items: stretch;">
+    <section class="mm-reminder-section">
 
-    <h3 style="color:#0d5705; width:100%;">Medicines</h3>
-    {% if medicines %}
-        <ul class="family-members-list">
-        {% for m in medicines %}
-            <li>{{ m.name }} — {{ m.time }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p class="photo-empty">No medicines on file yet. Add them during registration or ask your caregiver.</p>
-    {% endif %}
+        <div class="mm-reminder-section-heading">
 
-    <h3 style="color:#0d5705; width:100%; margin-top:20px;">Other Reminders</h3>
-    {% if reminders %}
-        <ul class="family-members-list">
-        {% for r in reminders %}
-            <li>
-                {{ r.text }} — {{ r.time }}
-                {% if r.done %}
-                    <strong style="color:#0d5705;">(Done)</strong>
+            <div>
+                <p class="mm-card-label">{{ t('medicines_section_label') }}</p>
+                <h2>{{ t('medicine_routine_title') }}</h2>
+            </div>
+
+            <span class="mm-section-count">
+                {{ medicines|length if medicines else 0 }}
+                {% if medicines and medicines|length == 1 %}
+                    {{ t('medicine_count_singular') }}
                 {% else %}
-                    <a href="{{ url_for('complete_reminder', reminder_id=r.id) }}" class="manage-family-btn" style="margin-left:10px;">Mark done</a>
+                    {{ t('medicine_count_plural') }}
                 {% endif %}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p class="photo-empty">No other reminders yet.</p>
-    {% endif %}
+            </span>
 
-    <form method="POST" class="photo-upload-form" style="margin-top:20px;">
-        <input type="text" name="text" placeholder="Reminder text (e.g. Drink water)" required>
-        <input type="time" name="time" required>
-        <button type="submit">Add reminder</button>
-    </form>
+        </div>
+
+
+        {% if medicines %}
+
+        <div class="mm-medicine-grid">
+
+            {% for medicine in medicines %}
+
+            <div class="mm-medicine-card">
+
+                <div class="mm-medicine-icon">
+                    💊
+                </div>
+
+                <div class="mm-medicine-details">
+
+                    <span>{{ t('medicine_word') }}</span>
+
+                    <h3>
+                        {{ medicine.name }}
+                    </h3>
+
+                    {% if medicine.dosage %}
+                        <p>{{ medicine.dosage }}</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="mm-empty-routine">
+            <span>🌿</span>
+            <div>
+                <strong>{{ t('medicine_empty_title') }}</strong>
+                <p>{{ t('medicine_empty_desc') }}</p>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+    <section class="mm-add-reminder">
+
+        <div class="mm-add-reminder-header">
+
+            <div class="mm-add-icon">
+                +
+            </div>
+
+            <div>
+                <p class="mm-card-label">{{ t('add_medicine_label') }}</p>
+
+                <h2>{{ t('add_medicine_title') }}</h2>
+
+                <p>
+                    {{ t('add_medicine_desc') }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('add_medicine') }}"
+            class="mm-reminder-form"
+        >
+
+            <div class="mm-reminder-field">
+
+                <label for="medicine_name">
+                    {{ t('field_medicine_name') }}
+                </label>
+
+                <input
+                    type="text"
+                    id="medicine_name"
+                    name="medicine_name"
+                    placeholder="{{ t('field_medicine_name_ph') }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="medicine_dosage">
+                    {{ t('field_dosage') }} <span>{{ t('optional_tag') }}</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="medicine_dosage"
+                    name="medicine_dosage"
+                    placeholder="{{ t('field_dosage_ph') }}"
+                >
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="medicine_time">
+                    {{ t('field_usual_time') }} <span>{{ t('optional_tag') }}</span>
+                </label>
+
+                <input
+                    type="time"
+                    id="medicine_time"
+                    name="medicine_time"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="mm-reminder-submit"
+            >
+                {{ t('btn_add_medicine_submit') }}
+                <span>+</span>
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="mm-reminder-section">
+
+        <div class="mm-reminder-section-heading">
+
+            <div>
+                <p class="mm-card-label">{{ t('schedule_label') }}</p>
+                <h2>{{ t('upcoming_reminders_title') }}</h2>
+            </div>
+
+        </div>
+
+
+        {% if reminders %}
+
+        <div class="mm-reminder-list">
+
+            {% for reminder in reminders %}
+
+            <div class="mm-schedule-card">
+
+                <div class="mm-time-block">
+                    <strong>{{ reminder.time }}</strong>
+                </div>
+
+                <div class="mm-schedule-line"></div>
+
+                <div class="mm-schedule-content">
+
+                    <div class="mm-schedule-icon">
+                        💊
+                    </div>
+
+                    <div>
+                        <h3>
+                            {{ reminder.text }}
+                        </h3>
+
+                        {% if reminder.note %}
+                            <p>{{ reminder.note }}</p>
+                        {% else %}
+                            <p>{{ t('reminder_fallback_note') }}</p>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="mm-empty-routine">
+            <span>☀️</span>
+            <div>
+                <strong>{{ t('reminder_empty_title') }}</strong>
+                <p>{{ t('reminder_empty_desc') }}</p>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+    <section class="mm-add-reminder">
+
+        <div class="mm-add-reminder-header">
+
+            <div class="mm-add-icon">
+                +
+            </div>
+
+            <div>
+                <p class="mm-card-label">{{ t('plan_ahead_label') }}</p>
+
+                <h2>{{ t('add_reminder_title') }}</h2>
+
+                <p>
+                    {{ t('add_reminder_desc') }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <form method="POST" class="mm-reminder-form">
+
+            <div class="mm-reminder-field">
+
+                <label for="medicine">
+                    {{ t('field_medicine_optional') }} <span>{{ t('optional_tag') }}</span>
+                </label>
+
+                <select id="medicine" name="medicine">
+
+                    <option value="" selected>
+                        {{ t('option_none') }}
+                    </option>
+
+                    {% for medicine in medicines %}
+                        <option value="{{ medicine.name }}">
+                            {{ medicine.name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="custom_text">
+                    {{ t('field_custom_text') }} <span>{{ t('optional_tag') }}</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="custom_text"
+                    name="custom_text"
+                    placeholder="{{ t('field_custom_text_ph') }}"
+                >
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="time">
+                    {{ t('field_time') }}
+                </label>
+
+                <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    required
+                >
+
+            </div>
+
+
+            <div class="mm-reminder-field">
+
+                <label for="note">
+                    {{ t('field_note') }} <span>{{ t('optional_tag') }}</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="note"
+                    name="note"
+                    placeholder="{{ t('field_note_ph') }}"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="mm-reminder-submit"
+            >
+                {{ t('btn_add_reminder') }}
+                <span>+</span>
+            </button>
+
+        </form>
+
+    </section>
 
 </section>
+
 {% endblock %}

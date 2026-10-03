@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Caregiver Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="caregiver-dashboard">
+    <section class="caregiver-dashboard-header">
+
+        <div>
+            <p class="mm-eyebrow">{{ t('caregiver_space_label') }}</p>
+
+            <h1>
+                {{ t('caregiver_dashboard_title') }}
+            </h1>
+
+            <p>
+                {{ t('caregiver_dashboard_desc') }}
+            </p>
+        </div>
+
+        <div class="caregiver-welcome-card">
+            <span class="caregiver-welcome-icon">🌿</span>
+
+            <div>
+                <strong>{{ t('good_morning') }}</strong>
+                <span>{{ t('good_morning_desc') }}</span>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="caregiver-stats">
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">🧠</div>
+
+            <div>
+                <span>{{ t('stat_activities_label') }}</span>
+                <strong>12</strong>
+            </div>
+        </div>
+
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">🎯</div>
+
+            <div>
+                <span>{{ t('stat_avg_score_label') }}</span>
+                <strong>82%</strong>
+            </div>
+        </div>
+
+
+        <div class="caregiver-stat">
+            <div class="caregiver-stat-icon">📷</div>
+
+            <div>
+                <span>{{ t('stat_memories_label') }}</span>
+                <strong>18</strong>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="caregiver-dashboard-grid">
+
+        <div class="caregiver-panel caregiver-activities">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">{{ t('recent_activity_panel_label') }}</p>
+                    <h2>{{ t('recent_activity_title') }}</h2>
+                </div>
+
+                <a href="{{ url_for('history') }}">
+                    {{ t('view_history_link') }}
+                </a>
+            </div>
+
+
+            <div class="caregiver-activity-row">
+
+                <div class="caregiver-activity-icon">
+                    🧩
+                </div>
+
+                <div class="caregiver-activity-info">
+                    <strong>{{ t('game_shuffle_title') }}</strong>
+                    <span>{{ t('completed_today') }}</span>
+                </div>
+
+                <div class="caregiver-score">
+                    82%
+                </div>
+
+            </div>
+
+
+            <div class="caregiver-activity-row">
+
+                <div class="caregiver-activity-icon">
+                    👨‍👩‍👧
+                </div>
+
+                <div class="caregiver-activity-info">
+                    <strong>{{ t('game_family_title') }}</strong>
+                    <span>{{ t('completed_yesterday') }}</span>
+                </div>
+
+                <div class="caregiver-score">
+                    75%
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="caregiver-panel">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">{{ t('today_panel_label') }}</p>
+                    <h2>{{ t('reminders_panel_title') }}</h2>
+                </div>
+
+                <a href="{{ url_for('reminders') }}">
+                    {{ t('view_all_link') }}
+                </a>
+            </div>
+
+
+            <div class="caregiver-reminder">
+
+                <span>💊</span>
+
+                <div>
+                    <strong>{{ t('medicine_word') }}</strong>
+                    <small>10:00 AM</small>
+                </div>
+
+            </div>
+
+
+            <div class="caregiver-reminder">
+
+                <span>💊</span>
+
+                <div>
+                    <strong>{{ t('medicine_word') }}</strong>
+                    <small>6:00 PM</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="caregiver-panel">
+
+            <div class="caregiver-panel-header">
+                <div>
+                    <p class="mm-eyebrow">{{ t('memories_panel_label') }}</p>
+                    <h2>{{ t('important_people_title') }}</h2>
+                </div>
+
+                <a href="{{ url_for('photo') }}">
+                    {{ t('manage_link') }}
+                </a>
+            </div>
+
+
+            <div class="caregiver-family-preview">
+
+                <div class="caregiver-family-avatar">
+                    👩
+                </div>
+
+                <div>
+                    <strong>{{ t('family_members_short') }}</strong>
+                    <span>{{ t('family_members_desc_short') }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="caregiver-dashboard-note">
+
+        <span>🌱</span>
+
+        <div>
+            <strong>{{ t('gentle_support_title') }}</strong>
+
+            <p>
+                {{ t('gentle_support_desc') }}
+            </p>
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

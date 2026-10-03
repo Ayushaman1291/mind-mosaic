@@ -1,60 +1,293 @@
 {% extends "base.html" %}
-{% block title %}
-Create Account
-{% endblock %}
+
 {% block content %}
-<div class="auth-container">
-    <div class="page-header">
-        <h1>{{ t('register_title') }}</h1>
+
+<section class="auth-page">
+
+    <!-- LEFT SIDE -->
+    <div class="auth-intro">
+
+        <p class="mm-eyebrow">{{ t('register_eyebrow') }}</p>
+
+        <h1>
+            {{ t('register_hero_line1') }}<br>
+            {{ t('register_hero_line2') }} <span>{{ t('register_hero_highlight') }}</span>
+        </h1>
+
+        <p>
+            {{ t('register_hero_desc') }}
+        </p>
+
+        <div class="auth-visual">
+
+            <div class="auth-orb one"></div>
+            <div class="auth-orb two"></div>
+            <div class="auth-orb three"></div>
+
+            <div class="auth-memory-card">
+
+                <div class="memory-icon">🫶</div>
+
+                <strong>
+                    {{ t('register_card_title') }}
+                </strong>
+
+                <small>
+                    {{ t('register_card_desc') }}
+                </small>
+
+            </div>
+
+        </div>
+
     </div>
-    <form method="POST" class="auth-form">
-    <input type="text" name="name" placeholder="{{ t('register_name') }}" required>
-    <input type="email" name="email" placeholder="{{ t('register_email') }}" required>
-    <input type="number" name="phone" placeholder="{{ t('register_phone') }}" required>
-    <input type="text" name="address" placeholder="{{ t('register_address') }}" required>
-    <input type="date" name="birthday" placeholder="Birthday">
 
-    <select name="language">
-        {% for code, label in LANGUAGE_NAMES.items() %}
-            <option value="{{ code }}">{{ label }}</option>
-        {% endfor %}
-    </select>
 
-    <input type="text" name="c-name" placeholder="{{ t('register_caregiver_name') }}" required>
-    <input type="number" name="c-phone" placeholder="{{ t('register_caregiver_phone') }}" required>
-    <input type="password" name="password" placeholder="{{ t('register_password') }}" required>
+    <!-- RIGHT SIDE -->
+    <div class="auth-card">
 
-    <div id="medicines" class="family-member">
-        <fieldset>
-            <legend>Medicine 1 (optional)</legend>
-            <label>Medicine name</label>
-            <input type="text" name="medicine_name[]">
-            <label>Time</label>
-            <input type="time" name="medicine_time[]">
-        </fieldset>
+        <p class="mm-eyebrow">{{ t('app_eyebrow') }}</p>
+
+        <h2>{{ t('register_heading') }}</h2>
+
+        <p>
+            {{ t('register_tagline') }}
+        </p>
+
+
+        <form
+            method="POST"
+            class="auth-form"
+        >
+
+            <!-- USERNAME -->
+            <label for="username">
+                {{ t('field_username') }}
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="{{ t('field_username_ph2') }}"
+                autocomplete="username"
+                required
+            >
+
+
+            <!-- EMAIL -->
+            <label for="email">
+                {{ t('field_email') }}
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="{{ t('field_email_ph') }}"
+                autocomplete="email"
+                required
+            >
+
+
+            <!-- PHONE -->
+            <label for="phone">
+                {{ t('field_phone') }}
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="{{ t('field_phone_ph') }}"
+                autocomplete="tel"
+                inputmode="tel"
+            >
+
+
+            <!-- BIRTHDAY -->
+            <label for="birthday">
+                {{ t('field_birthday') }}
+            </label>
+
+            <input
+                type="date"
+                id="birthday"
+                name="birthday"
+                autocomplete="bday"
+            >
+
+
+            <!-- PASSWORD -->
+            <label for="password">
+                {{ t('field_password') }}
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="{{ t('field_password_ph2') }}"
+                autocomplete="new-password"
+                required
+            >
+
+
+            <!-- CAREGIVER -->
+            <label for="caregiver_name">
+                {{ t('field_caregiver_name') }}
+            </label>
+
+            <input
+                type="text"
+                id="caregiver_name"
+                name="caregiver_name"
+                placeholder="{{ t('field_caregiver_name_ph') }}"
+            >
+
+
+            <!-- MEDICINES -->
+            <div class="medicine-fields">
+
+                <h3>
+                    {{ t('medicines_heading') }}
+                </h3>
+
+                <p class="medicine-description">
+                    {{ t('medicines_desc') }}
+                </p>
+
+
+                <div id="medicine-container">
+
+                    <div class="medicine-item">
+
+                        <label for="medicine_name_1">
+                            {{ t('field_medicine_name') }}
+                        </label>
+
+                        <input
+                            type="text"
+                            id="medicine_name_1"
+                            name="medicine_name[]"
+                            placeholder="{{ t('field_medicine_name_ph') }}"
+                        >
+
+
+                        <label for="medicine_dosage_1">
+                            {{ t('field_dosage') }}
+                        </label>
+
+                        <input
+                            type="text"
+                            id="medicine_dosage_1"
+                            name="medicine_dosage[]"
+                            placeholder="{{ t('field_dosage_ph') }}"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="add-medicine-btn"
+                    onclick="addMedicine()"
+                >
+                    {{ t('btn_add_medicine') }}
+                </button>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+            <button
+                type="submit"
+                class="auth-submit"
+            >
+                {{ t('btn_create_account') }}
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+
+            {{ t('register_have_account') }}
+
+            <a href="{{ url_for('login') }}">
+                {{ t('register_login_link') }}
+            </a>
+
+        </div>
+
     </div>
-    <button type="button" id="add-medicine" class="add-member">+ Add another medicine</button>
 
-    <button type="submit" class="save-family">{{ t('register_button') }}</button>
-</form>
+</section>
+
 
 <script>
-    const medicines = document.getElementById("medicines");
-    const addMedicineButton = document.getElementById("add-medicine");
-    addMedicineButton.addEventListener("click", () => {
-        const number = medicines.children.length + 1;
-        medicines.insertAdjacentHTML("beforeend", `
-            <fieldset>
-                <legend>Medicine ${number} (optional)</legend>
-                <label>Medicine name</label>
-                <input type="text" name="medicine_name[]">
-                <label>Time</label>
-                <input type="time" name="medicine_time[]">
-            </fieldset>
-        `);
-    });
+
+let medicineCount = 1;
+
+// Translated strings for JS-generated rows, so added medicines
+// stay in the current language too.
+const medNameLabel = {{ t('field_medicine_name') | tojson }};
+const medNamePh = {{ t('field_medicine_name_ph') | tojson }};
+const medDosageLabel = {{ t('field_dosage') | tojson }};
+const medDosagePh = {{ t('field_dosage_ph') | tojson }};
+const removeLabel = {{ t('btn_remove') | tojson }};
+
+function addMedicine() {
+
+    medicineCount++;
+
+    const container =
+        document.getElementById("medicine-container");
+
+    const medicine =
+        document.createElement("div");
+
+    medicine.className = "medicine-item";
+
+    medicine.innerHTML = `
+
+        <label for="medicine_name_${medicineCount}">
+            ${medNameLabel}
+        </label>
+
+        <input
+            type="text"
+            id="medicine_name_${medicineCount}"
+            name="medicine_name[]"
+            placeholder="${medNamePh}"
+        >
+
+        <label for="medicine_dosage_${medicineCount}">
+            ${medDosageLabel}
+        </label>
+
+        <input
+            type="text"
+            id="medicine_dosage_${medicineCount}"
+            name="medicine_dosage[]"
+            placeholder="${medDosagePh}"
+        >
+
+        <button
+            type="button"
+            class="remove-medicine-btn"
+            onclick="this.parentElement.remove()"
+        >
+            ${removeLabel}
+        </button>
+
+    `;
+
+    container.appendChild(medicine);
+}
+
 </script>
-    <p class="auth-switch">{{ t('register_have_account') }}<a href="{{url_for('login')}}">{{ t('register_login') }}</a></p>
-    <p class="auth-switch">Fill form<a href="{{url_for('form')}}">Create One</a></p>
-</div>
+
 {% endblock %}

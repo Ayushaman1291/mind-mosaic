@@ -1,33 +1,181 @@
 {% extends "base.html" %}
-{% block title %}
-Activity History
-{% endblock %}
 
 {% block content %}
 
-<section class="photo-h">
-    <div>
-        <h1>Activity History</h1>
-        <p>Complete history of games and activities</p>
+<section class="mm-history-page">
+
+    <div class="mm-history-header">
+
+        <div>
+            <p class="mm-eyebrow">{{ t('history_eyebrow') }}</p>
+
+            <h1>{{ t('history_title') }}</h1>
+
+            <p>
+                {{ t('history_desc') }}
+            </p>
+        </div>
+
+        <div class="mm-history-icon">
+            📖
+        </div>
+
     </div>
+
+    <div class="mm-history-summary">
+
+        <div class="mm-history-stat">
+            <div class="mm-stat-icon">
+                🧩
+            </div>
+
+            <div>
+                <span>{{ t('stat_activities') }}</span>
+                <strong>{{ history|length if history else 0 }}</strong>
+            </div>
+        </div>
+
+
+        <div class="mm-history-stat">
+            <div class="mm-stat-icon mm-stat-gold">
+                🌱
+            </div>
+
+            <div>
+                <span>{{ t('stat_journey_label') }}</span>
+                <strong>{{ t('stat_journey_value') }}</strong>
+            </div>
+        </div>
+
+    </div>
+    <div class="mm-history-heading">
+
+        <div>
+            <p class="mm-card-label">{{ t('recent_activity_label') }}</p>
+            <h2>{{ t('timeline_title') }}</h2>
+        </div>
+
+    </div>
+
+
+    {% if history %}
+
+    <div class="mm-timeline">
+
+        {% for item in history %}
+
+        <article class="mm-history-item">
+
+            <div class="mm-timeline-marker">
+                <span>
+                    {% if item.activity_type == 'MemoryShuffle' %}
+                        🧩
+                    {% elif item.activity_type == 'FamilyMemory' %}
+                        👨‍👩‍👧
+                    {% else %}
+                        🌿
+                    {% endif %}
+                </span>
+            </div>
+
+
+            <div class="mm-history-card">
+
+                <div class="mm-history-card-top">
+
+                    <div>
+                        <span class="mm-history-label">
+                            {{ t('activity_label') }}
+                        </span>
+
+                        <h3>
+                            {{ item.activity_type }}
+                        </h3>
+                    </div>
+
+                    {% if item.date %}
+                        <time>
+                            {{ item.date }}
+                        </time>
+                    {% elif item.created_at %}
+                        <time>
+                            {{ item.created_at }}
+                        </time>
+                    {% endif %}
+
+                </div>
+
+
+                {% if item.score is defined and item.score is not none %}
+
+                <div class="mm-history-result">
+
+                    <div class="mm-result-score">
+                        <strong>{{ item.score }}</strong>
+                        <span>{{ t('score_label') }}</span>
+                    </div>
+
+                    {% if item.total is defined and item.total is not none %}
+
+                    <div class="mm-result-progress">
+
+                        <div class="mm-result-progress-track">
+
+                            <div
+                                class="mm-result-progress-fill"
+                                style="width: {{ ((item.score / item.total) * 100) if item.total else 0 }}%;"
+                            ></div>
+
+                        </div>
+
+                        <span>
+                            {{ item.score }} / {{ item.total }}
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+
+
+                {% if item.message %}
+                    <p class="mm-history-description">
+                        {{ item.message }}
+                    </p>
+                {% endif %}
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+    <div class="mm-history-empty">
+
+        <div class="mm-history-empty-icon">
+            🌱
+        </div>
+
+        <h2>{{ t('history_empty_title') }}</h2>
+
+        <p>
+            {{ t('history_empty_desc') }}
+        </p>
+
+        <a href="{{ url_for('games') }}" class="mm-history-button">
+            {{ t('history_empty_link') }}
+        </a>
+
+    </div>
+
+    {% endif %}
+
 </section>
 
-<section class="photo-card" style="justify-content: flex-start; align-items: stretch;">
-    {% if activities %}
-        <ul class="family-members-list" style="width:100%;">
-        {% for a in activities %}
-            <li style="margin-bottom:14px; list-style:none;">
-                <strong style="color:#0d5705;">{{ a.game.replace('_', ' ').title() }}</strong>
-                — Score: {{ a.score }}, Accuracy: {{ a.accuracy }}%, Time: {{ a.time_taken }}s
-                {% if a.level_reached %} , Level: {{ a.level_reached }}{% endif %}
-                {% if a.performance_label %} , Performance: {{ a.performance_label }}{% endif %}
-                <br>
-                <span style="color:#52734d; font-size:12px;">{{ a.created_at }}</span>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p class="photo-empty">No activity yet. Play a game to see your history here.</p>
-    {% endif %}
-</section>
 {% endblock %}

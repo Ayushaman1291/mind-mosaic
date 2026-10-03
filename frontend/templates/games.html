@@ -1,98 +1,106 @@
 {% extends "base.html" %}
 
-
-{% block title %}
-Games
-{% endblock %}
-
-
 {% block content %}
 
-<!-- ================= GAMES HEADER ================= -->
+<section class="mm-games-page">
 
-<section class="puzzle-h">
+    <div class="mm-games-header">
+        <p class="mm-eyebrow">{{ t('games_eyebrow') }}</p>
 
-    <div>
-
-        <h1>
-            Games
-        </h1>
+        <h1>{{ t('games_title') }}</h1>
 
         <p>
-            Choose a game and start playing
+            {{ t('games_desc') }}
         </p>
-
     </div>
 
-</section>
 
+    <div class="mm-games-grid">
 
-<!-- ================= GAME CARDS ================= -->
+        <article class="mm-game-card mm-game-green">
 
-<section class="games-grid">
+            <div class="mm-game-visual">
+                <div class="mm-game-icon">
+                    🧩
+                </div>
 
-
-    <!-- ================= SHUFFLE GAME ================= -->
-
-    <a
-        href="{{ url_for('memoryshuffle') }}"
-        class="game-card"
-    >
-
-        <div>
-
-            <div class="game-icon">
-                🧠
+                <span class="mm-game-tag">
+                    {{ t('tag_visual_memory') }}
+                </span>
             </div>
 
-            <h2>
-                Shuffle Game
-            </h2>
+            <div class="mm-game-body">
 
-            <p>
-                Challenge your memory and concentration.
-            </p>
+                <h2>{{ t('game_shuffle_title') }}</h2>
 
-        </div>
+                <p>
+                    {{ t('game_shuffle_desc') }}
+                </p>
 
+                <div class="mm-game-info">
+                    <span>{{ t('game_shuffle_tag1') }}</span>
+                    <span>{{ t('game_shuffle_tag2') }}</span>
+                </div>
 
-        <span class="game-btn">
-            Play
-        </span>
+                <a href="{{ url_for('memoryshuffle') }}" class="mm-game-button">
+                    {{ t('btn_start_activity') }}
+                    <span>→</span>
+                </a>
 
-    </a>
-
-
-    <!-- ================= FAMILY MEMORY ================= -->
-
-    <a
-        href="{{ url_for('familymemory') }}"
-        class="game-card"
-    >
-
-        <div>
-
-            <div class="game-icon">
-                👨‍👩‍👧
             </div>
 
-            <h2>
-                Family Memory
-            </h2>
+        </article>
 
-            <p>
-                Match familiar faces and memories.
-            </p>
+        <article class="mm-game-card mm-game-gold">
 
+            <div class="mm-game-visual">
+                <div class="mm-game-icon">
+                    👨‍👩‍👧
+                </div>
+
+                <span class="mm-game-tag">
+                    {{ t('tag_personal_memory') }}
+                </span>
+            </div>
+
+            <div class="mm-game-body">
+
+                <h2>{{ t('game_family_title') }}</h2>
+
+                <p>
+                    {{ t('game_family_desc') }}
+                </p>
+
+                <div class="mm-game-info">
+                    <span>{{ t('game_family_tag1') }}</span>
+                    <span>{{ t('game_family_tag2') }}</span>
+                </div>
+
+                <a href="{{ url_for('familymemory') }}" class="mm-game-button">
+                    {{ t('btn_start_activity') }}
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+    <div class="mm-games-note">
+
+        <div class="mm-note-icon">
+            🌿
         </div>
 
+        <div>
+            <strong>{{ t('games_note_title') }}</strong>
 
-        <span class="game-btn">
-            Play
-        </span>
+            <p>
+                {{ t('games_note_desc') }}
+            </p>
+        </div>
 
-    </a>
-
+    </div>
 
 </section>
 

@@ -249,7 +249,8 @@ def home():
     return render_template(
         "home.html",
         user=user,
-        upcoming=upcoming
+        next_reminder=upcoming,
+        caregiver_name=user.get("name")
     )
 
 
@@ -266,27 +267,31 @@ def register():
             "medicine_name[]"
         )
 
-        medicine_times = request.form.getlist(
-            "medicine_time[]"
+        medicine_dosages = request.form.getlist(
+            "medicine_dosage[]"
         )
 
         medicines = [
             {
                 "name": name,
-                "time": time
+                "dosage": dosage
             }
 
-            for name, time in zip(
+            for name, dosage in zip(
                 medicine_names,
-                medicine_times
+                medicine_dosages
             )
 
-            if name and time
+            if name and dosage
         ]
+
+        username = request.form.get("username")
 
         data = {
 
-            "name": request.form.get("name"),
+            "username": username,
+
+            "name": username,
 
             "email": request.form.get("email"),
 
@@ -298,9 +303,9 @@ def register():
 
             "language": request.form.get("language"),
 
-            "caregiver_name": request.form.get("c-name"),
+            "caregiver_name": request.form.get("caregiver_name"),
 
-            "caregiver_phone": request.form.get("c-phone"),
+            "caregiver_phone": request.form.get("caregiver_phone"),
 
             "password": request.form.get("password"),
 
@@ -356,14 +361,14 @@ def login():
 
     if request.method == "POST":
 
-        email = request.form.get("email")
+        username = request.form.get("username")
 
         password = request.form.get("password")
 
         response = requests.post(
             f"{BACKEND_URL}/auth/login",
             json={
-                "email": email,
+                "username": username,
                 "password": password,
             }
         )
@@ -470,7 +475,6 @@ def set_language():
         flash("Language updated!", "success")
     else:
         flash("Could not update language.", "error")
-
     return redirect(url_for("profile"))
 # =========================================================
 # PHOTOS
@@ -486,7 +490,7 @@ def photo():
 
         file = request.files.get("photo")
 
-        caption = request.form.get("caption")
+        person_name = request.form.get("person_name")
 
         if not file or file.filename == "":
 
@@ -508,7 +512,7 @@ def photo():
         }
 
         data = {
-            "caption": caption
+            "person_name": person_name
         }
 
         response = requests.post(
@@ -583,15 +587,26 @@ def reminders():
 
     if request.method == "POST":
 
-        text = request.form.get("text")
+        medicine = request.form.get("medicine")
+
+        custom_text = request.form.get("custom_text")
 
         time = request.form.get("time")
+
+        note = request.form.get("note")
+
+        text = (
+            custom_text.strip()
+            if custom_text and custom_text.strip()
+            else medicine
+        )
 
         response = requests.post(
             f"{BACKEND_URL}/reminders/{user_id}",
             json={
                 "text": text,
-                "time": time
+                "time": time,
+                "note": note
             }
         )
 
@@ -654,6 +669,64 @@ def reminders():
 
 
 # =========================================================
+# ADD MEDICINE
+# =========================================================
+
+@app.route("/reminders/add-medicine", methods=["POST"])
+@login_required
+def add_medicine():
+
+    user_id = session.get("user_id")
+
+    name = request.form.get("medicine_name")
+
+    dosage = request.form.get("medicine_dosage")
+
+    time = request.form.get("medicine_time")
+
+    response = requests.post(
+        f"{BACKEND_URL}/reminders/{user_id}/medicines",
+        json={
+            "name": name,
+            "dosage": dosage,
+            "time": time
+        }
+    )
+
+    if response.status_code == 201:
+
+        flash(
+            "Medicine added!",
+            "success"
+        )
+
+    else:
+
+        try:
+
+            error_message = response.json().get(
+                "error",
+                "Could not add medicine"
+            )
+
+        except ValueError:
+
+            error_message = (
+                "Could not add medicine "
+                f"(server error {response.status_code})"
+            )
+
+        flash(
+            error_message,
+            "error"
+        )
+
+    return redirect(
+        url_for("reminders")
+    )
+
+
+# =========================================================
 # COMPLETE REMINDER
 # =========================================================
 
@@ -698,7 +771,7 @@ def history():
 
     return render_template(
         "history.html",
-        activities=activities
+        history=activities
     )
 
 

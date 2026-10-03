@@ -12,13 +12,13 @@ Home
     <div class="profile-info">
         <div class="profile-avatar">👤</div>
         <div>
-            <h2>{{ user.name }}</h2>
+            <h2>{{ user.name or "Patient Name" }}</h2>
             <p>{{ t('profile_welcome') }}</p>
         </div>
     </div>
     <div class="caregiver-info">
         <span>{{ t('profile_caregiver_label') }}</span>
-<strong>{{ user.caregiver_name or "Not set" }}</strong>
+        <strong>{{ user.caregiver_name or "Not set" }}</strong>
     </div>
 </section>
 
@@ -32,22 +32,22 @@ Home
     </div>
 </section>
 <section class="profile-family-grid">
-<article class="profile-card family-card">
-    <div class="profile-card-icon">👨‍👩‍👧</div>
-    <div>
-        <h3>{{ t('family_members_title') }}</h3>
-        <p>{{ t('family_members_desc') }}</p>
-        {% if family_members %}
-            <ul class="family-members-list">
-            {% for member in family_members %}
-                <li>{{ member.name }} — {{ member.relation }}</li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <span class="profile-card-info">{{ t('family_members_empty') }}</span>
-        {% endif %}
-    </div>
-</article>
+     <article class="profile-card family-card">
+        <div class="profile-card-icon">👨‍👩‍👧</div>
+        <div>
+            <h3>{{ t('family_members_title') }}</h3>
+            <p>{{ t('family_members_desc') }}</p>
+            {% if family_members %}
+                <ul class="family-members-list">
+                {% for member in family_members %}
+                    <li>{{ member.name }} — {{ member.relation }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <span class="profile-card-info">{{ t('family_members_empty') }}</span>
+            {% endif %}
+        </div>
+    </article>
 </section>
 <section class="profile-h">
     <div class="profile-section-heading">
@@ -55,6 +55,7 @@ Home
             <h1>{{ t('activity_overview_title') }}</h1>
             <p>{{ t('activity_overview_subtitle') }}</p>
         </div>
+        <a href="{{ url_for('home') }}" class="manage-family-btn">{{ t('view_dashboard') }}</a>
     </div>
 </section>
 <section class="profile-family-grid">
@@ -138,13 +139,13 @@ Home
             <h3>{{ t('caregiver_details_title') }}</h3>
             <div class="caregiver-details">
                 <p>
-    <span>{{ t('caregiver_name_label') }}</span>
-    <strong>{{ user.caregiver_name or "Not set" }}</strong>
-</p>
-<p>
-    <span>{{ t('caregiver_contact_label') }}</span>
-    <strong>{{ user.caregiver_phone or "Not set" }}</strong>
-</p>
+                    <span>{{ t('caregiver_name_label') }}</span>
+                    <strong>{{ user.caregiver_name or "Not set" }}</strong>
+                </p>
+                <p>
+                    <span>{{ t('caregiver_contact_label') }}</span>
+                    <strong>{{ user.caregiver_phone or "Not set" }}</strong>
+                </p>
             </div>
             <button type="button" class="edit-caregiver-btn">{{ t('edit_details') }}</button>
         </div>
@@ -188,9 +189,18 @@ Home
                 <p>{{ t('language_desc') }}</p>
             </div>
             <form method="POST" action="{{ url_for('set_language') }}">
-                <select name="language" class="language-select" onchange="this.form.submit()">
+                <select
+                    name="language"
+                    class="language-select"
+                    onchange="this.form.submit()"
+                >
                     {% for code, label in LANGUAGE_NAMES.items() %}
-                        <option value="{{ code }}" {% if user.language == code %}selected{% endif %}>{{ label }}</option>
+                        <option
+                            value="{{ code }}"
+                            {% if user.language == code %}selected{% endif %}
+                        >
+                            {{ label }}
+                        </option>
                     {% endfor %}
                 </select>
             </form>
@@ -201,7 +211,7 @@ Home
 <div class="profile-account">
     <a href="#" class="privacy-link">{{ t('privacy_link') }}</a>
     <a href="{{ url_for('logout') }}" class="logout-link">
-    {{ t('logout_link') }}
-</a>
+        {{ t('logout_link') }}
+    </a>
 </div>
 {% endblock %}

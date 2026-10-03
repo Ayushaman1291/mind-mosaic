@@ -1,191 +1,209 @@
 {% extends "base.html" %}
 
-{% block title %}
-Home
-{% endblock %}
-
-
 {% block content %}
 
-<!-- ================= HERO ================= -->
+<section class="mm-home">
 
-<section class="hero">
+    <div class="mm-welcome">
+        <div>
+            <p class="mm-eyebrow">{{ t('home_eyebrow') }}</p>
 
-    <h1>
-        {{ t('home_greeting', name=user.name or "there") }} 👋
-    </h1>
+            <h1>
+                {{ t('home_greeting', name=(caregiver_name or "there")) }}
+            </h1>
 
-    <p class="hero-sub">
-        {{ t('home_how_are_you') }}
-    </p>
+            <p class="mm-welcome-text">
+                {{ t('home_desc') }}
+            </p>
+        </div>
 
-    <p
-        id="current-datetime"
-        style="color:#52734d; margin-top:10px;"
-    ></p>
+        <div class="mm-date-card">
+            <span>{{ t('today_label') }}</span>
+            <strong id="live-date"></strong>
+            <small id="live-time"></small>
+        </div>
+    </div>
+
+
+    <div class="mm-reminder-banner">
+
+        <div class="mm-reminder-icon">
+            ⏰
+        </div>
+
+        <div class="mm-reminder-content">
+            <span class="mm-small-label">{{ t('upcoming_reminder_label') }}</span>
+
+            {% if next_reminder %}
+                <h3>{{ next_reminder.text }}</h3>
+                <p>{{ next_reminder.time }}</p>
+            {% else %}
+                <h3>{{ t('no_upcoming_title') }}</h3>
+                <p>{{ t('no_upcoming_desc') }}</p>
+            {% endif %}
+        </div>
+
+        <a href="{{ url_for('reminders') }}" class="mm-text-button">
+            {{ t('view_reminders_link') }}
+        </a>
+
+    </div>
+
+    <div class="mm-section-heading">
+        <div>
+            <p class="mm-eyebrow">{{ t('your_space_label') }}</p>
+            <h2>{{ t('explore_title') }}</h2>
+        </div>
+
+        <p>
+            {{ t('explore_desc') }}
+        </p>
+        <a href="{{ url_for('caregiver_dashboard') }}" class="caregiver-dashboard-btn">
+            <span>♡</span>
+            {{ t('caregiver_dashboard_btn') }}
+            <span class="arrow">→</span>
+        </a>
+    </div>
+
+
+    <div class="mm-feature-grid">
+
+        <a href="{{ url_for('games') }}" class="mm-feature mm-feature-large">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-green">
+                    🧩
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">{{ t('feature_games_label') }}</span>
+
+                <h3>{{ t('feature_games_title') }}</h3>
+
+                <p>
+                    {{ t('feature_games_desc') }}
+                </p>
+
+                <span class="mm-feature-link">
+                    {{ t('feature_games_link') }}
+                </span>
+            </div>
+
+        </a>
+
+
+        <a href="{{ url_for('photo') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-gold">
+                    📷
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">{{ t('feature_photos_label') }}</span>
+
+                <h3>{{ t('feature_photos_title') }}</h3>
+
+                <p>
+                    {{ t('feature_photos_desc') }}
+                </p>
+
+                <span class="mm-feature-link">
+                    {{ t('feature_photos_link') }}
+                </span>
+            </div>
+
+        </a>
+
+        <a href="{{ url_for('reminders') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-soft">
+                    💊
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">{{ t('feature_reminders_label') }}</span>
+
+                <h3>{{ t('feature_reminders_title') }}</h3>
+
+                <p>
+                    {{ t('feature_reminders_desc') }}
+                </p>
+
+                <span class="mm-feature-link">
+                    {{ t('feature_reminders_link') }}
+                </span>
+            </div>
+
+        </a>
+
+        <a href="{{ url_for('profile') }}" class="mm-feature">
+
+            <div class="mm-feature-top">
+                <div class="mm-feature-icon mm-icon-rose">
+                    👤
+                </div>
+
+                <span class="mm-feature-arrow">↗</span>
+            </div>
+
+            <div class="mm-feature-content">
+                <span class="mm-card-label">{{ t('feature_profile_label') }}</span>
+
+                <h3>{{ t('feature_profile_title') }}</h3>
+
+                <p>
+                    {{ t('feature_profile_desc') }}
+                </p>
+
+                <span class="mm-feature-link">
+                    {{ t('feature_profile_link') }}
+                </span>
+            </div>
+
+        </a>
+
+    </div>
 
 </section>
 
-
-<!-- ================= NEXT REMINDER ================= -->
-
-<section
-    class="photo-card"
-    style="
-        justify-content: flex-start;
-        align-items: stretch;
-        max-width:700px;
-    "
->
-
-    <h3
-        style="
-            color:#0d5705;
-            width:100%;
-        "
-    >
-        {{ t('home_next_reminder') }}
-    </h3>
-
-
-    {% if upcoming %}
-
-        <p
-            style="
-                font-size:18px;
-                color:#244522;
-            "
-        >
-
-            <strong>
-                {{ upcoming.text }}
-            </strong>
-
-            at
-
-            <strong>
-                {{ upcoming.time }}
-            </strong>
-
-        </p>
-
-    {% else %}
-
-        <p class="photo-empty">
-            {{ t('home_no_reminder') }}
-        </p>
-
-    {% endif %}
-
-
-    <a
-        href="{{ url_for('reminders') }}"
-        class="manage-family-btn"
-    >
-        {{ t('home_see_more') }}
-    </a>
-
-</section>
-
-
-<!-- ================= HOME FEATURES ================= -->
-
-<section class="features">
-
-
-    <!-- GAMES -->
-
-    <a
-        href="{{ url_for('games') }}"
-        class="feature-card"
-    >
-
-        <h2>
-            Games
-        </h2>
-
-        <p>
-            Play interactive memory games
-        </p>
-
-    </a>
-
-
-    <!-- FAMILY PHOTOS -->
-
-    <a
-        href="{{ url_for('photo') }}"
-        class="feature-card"
-    >
-
-        <h2>
-            Family Photos
-        </h2>
-
-        <p>
-        </p>
-
-    </a>
-
-
-    <!-- FORM -->
-
-    <a
-        href="{{ url_for('form') }}"
-        class="feature-card"
-    >
-
-        <h2>
-            Form
-        </h2>
-
-        <p>
-        </p>
-
-    </a>
-
-
-</section>
-
-
-<!-- ================= CLOCK ================= -->
 
 <script>
+function updateDateTime() {
+    const now = new Date();
 
-    function updateClock() {
+    const dateElement = document.getElementById("live-date");
+    const timeElement = document.getElementById("live-time");
 
-        const now = new Date();
-
-        const options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        };
-
-        const dateStr =
-            now.toLocaleDateString(
-                undefined,
-                options
-            );
-
-        const timeStr =
-            now.toLocaleTimeString();
-
-        document
-            .getElementById("current-datetime")
-            .textContent =
-            dateStr + " — " + timeStr;
+    if (dateElement) {
+        dateElement.textContent = now.toLocaleDateString("en-IN", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        });
     }
 
+    if (timeElement) {
+        timeElement.textContent = now.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+}
 
-    updateClock();
-
-    setInterval(
-        updateClock,
-        1000
-    );
-
+updateDateTime();
+setInterval(updateDateTime, 1000);
 </script>
 
 {% endblock %}
